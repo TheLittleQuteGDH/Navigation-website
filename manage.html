@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>管理后台 · 导航站</title>
+    <link rel="stylesheet" href="css/managestyles.css">
+    <script src="https://static.geetest.com/v4/gt4.js"></script>
+</head>
+<body>
+    <div class="login-bg"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="logo">导航管理</div>
+        <div class="nav-item active" data-section="site" onclick="switchSection('site');if(window.innerWidth<768)toggleSidebar()">站点设置</div>
+        <div class="nav-item" data-section="groups" onclick="switchSection('groups');if(window.innerWidth<768)toggleSidebar()">分组与卡片</div>
+        <div class="nav-item" data-section="backup" onclick="switchSection('backup');if(window.innerWidth<768)toggleSidebar()">备份恢复</div>
+        <div class="nav-item" data-section="feedbacks" onclick="switchSection('feedbacks');if(window.innerWidth<768)toggleSidebar()">反馈管理</div>
+        <div class="nav-item" data-section="user" onclick="switchSection('user');if(window.innerWidth<768)toggleSidebar()">用户设置</div>
+        <div class="nav-item" data-section="logs" onclick="switchSection('logs');if(window.innerWidth<768)toggleSidebar()">操作日志</div>
+        <div class="sidebar-footer">
+            <a href="index.html" target="_blank" class="btn-outline">↗ 查看导航站</a>
+            <button class="btn-outline danger" onclick="logout()">退出登录</button>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent" style="display:none;">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">☰</button>
+            </div>
+            <div class="top-bar-actions">
+                <a href="index.html" target="_blank" class="btn-outline">↗ 查看导航站</a>
+                <button class="btn-outline" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+
+        <div id="section-site" class="section active">
+            <div class="profile-greeting">
+                <div class="avatar-box" id="profileAvatar"></div>
+                <div class="greeting-text" id="profileGreetingText">下午好，用户</div>
+            </div>
+            <h2>基础信息</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>网站标题</label><input type="text" id="siteTitle"></div>
+                <div class="form-item"><label>描述</label><input type="text" id="siteDesc"></div>
+                <div class="form-item"><label>站点图标URL</label><input type="url" id="siteIcon"></div>
+            </div>
+
+            <h2 style="margin-top:24px;">网站样式</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>主色调</label><input type="color" id="primaryColor"></div>
+                <div class="form-item"><label>背景色</label><input type="color" id="bgColor"></div>
+                <div class="form-item"><label>卡片背景</label><input type="color" id="cardColor"></div>
+                <div class="form-item"><label>文字颜色</label><input type="color" id="textColor"></div>
+                <div class="form-item"><label>背景图URL</label><input type="url" id="bgImage"></div>
+                <div class="form-item"><label>背景不透明度</label><input type="number" id="bgOpacity" step="0.1" min="0" max="1"></div>
+                <div class="form-item"><label>全局字体</label><select id="globalFont"><option value="">系统默认</option><option value="'Inter', sans-serif">现代</option><option value="'Georgia', serif">衬线</option><option value="'Courier New', monospace">等宽</option></select></div>
+                <div class="form-item"><label>标题字号(rem)</label><input type="number" id="titleFontSize" step="0.1" min="1" max="3" value="2"></div>
+                <div class="form-item"><label>卡片名称字号(rem)</label><input type="number" id="cardNameFontSize" step="0.1" min="0.6" max="1.5" value="0.88"></div>
+                <div class="form-item"><label>卡片圆角</label><label class="toggle-switch"><input type="checkbox" id="cardRadius"><span class="slider"></span></label></div>
+                <div class="form-item"><label>卡片阴影</label><label class="toggle-switch"><input type="checkbox" id="cardShadow"><span class="slider"></span></label></div>
+            </div>
+
+            <h2 style="margin-top:24px;">功能开关</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>显示访客IP</label><label class="toggle-switch"><input type="checkbox" id="showIP"><span class="slider"></span></label></div>
+                <div class="form-item"><label>一键下线</label><label class="toggle-switch"><input type="checkbox" id="offlineToggle"><span class="slider"></span></label></div>
+                <div class="form-item"><label>显示天气预报</label><label class="toggle-switch"><input type="checkbox" id="showWeather"><span class="slider"></span></label></div>
+                <div class="form-item"><label>显示时钟日期</label><label class="toggle-switch"><input type="checkbox" id="showClock"><span class="slider"></span></label></div>
+                <div class="form-item"><label>显示底部励志文字</label><label class="toggle-switch"><input type="checkbox" id="showQuote"><span class="slider"></span></label></div>
+                <div class="form-item"><label>自定义底部文字</label><input type="text" id="footerText" placeholder="留空则不显示"></div>
+            </div>
+
+            <h2 style="margin-top:24px;">下线设置</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>一键下线</label><label class="toggle-switch"><input type="checkbox" id="offlineToggle"><span class="slider"></span></label></div>
+                <div class="form-item"><label>下线标题</label><input type="text" id="offlineTitle"></div>
+                <div class="form-item"><label>下线提示</label><input type="text" id="offlineMsg"></div>
+            </div>
+
+            <h2 style="margin-top:24px;">Geetest 人机验证</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>启用 Geetest</label><label class="toggle-switch"><input type="checkbox" id="enableGeetest"><span class="slider"></span></label></div>
+                <div class="form-item"><label>Captcha ID</label><input type="text" id="geetestId" placeholder="填写你的Captcha ID"></div>
+                <div class="form-item"><label>Captcha Key</label><input type="text" id="geetestKey" placeholder="填写你的Captcha Key"></div>
+            </div>
+
+            <h2 style="margin-top:24px;">公告与弹窗</h2>
+            <div class="form-grid" style="margin-bottom:16px;">
+                <div class="form-item"><label>启用首页公告栏</label><label class="toggle-switch"><input type="checkbox" id="noticeEnabled"><span class="slider"></span></label></div>
+                <div class="form-item"><label>启用弹窗公告</label><label class="toggle-switch"><input type="checkbox" id="popupEnabled"><span class="slider"></span></label></div>
+            </div>
+            <div style="margin-top:12px;">
+                <h3 style="font-size:1rem; font-weight:600; margin-bottom:12px;">首页公告栏</h3>
+                <div class="form-grid">
+                    <div class="form-item"><label>公告标题</label><input type="text" id="noticeTitle"></div>
+                    <div class="form-item"><label>公告图标</label><input type="text" id="noticeIcon"></div>
+                </div>
+                <div class="form-item"><label>公告正文 (Markdown)</label><textarea id="noticeContent" rows="4"></textarea></div>
+            </div>
+            <div style="margin-top:20px;">
+                <h3 style="font-size:1rem; font-weight:600; margin-bottom:12px;">弹窗公告</h3>
+                <div class="form-grid">
+                    <div class="form-item"><label>弹窗标题</label><input type="text" id="popupTitle"></div>
+                    <div class="form-item"><label>弹出策略</label><select id="popupStrategy"><option value="always">每次都弹出</option><option value="daily">每天一次</option><option value="weekly">每周一次</option></select></div>
+                </div>
+                <div class="form-item"><label>弹窗内容 (Markdown)</label><textarea id="popupContent" rows="4"></textarea></div>
+            </div>
+            <button class="btn" style="margin-top:24px;" onclick="saveAllSettings()">保存所有站点设置</button>
+        </div>
+
+        <div id="section-groups" class="section">
+            <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin-bottom:16px;">
+                <h2 style="margin:0; border:none;">导航分组</h2>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                    <div style="display:flex; gap:4px; background:#f1f5f9; padding:3px; border-radius:6px;">
+                        <button class="check-mode-btn active" data-mode="fast" onclick="setCheckMode('fast')" style="border:none; background:transparent; padding:4px 10px; border-radius:4px; cursor:pointer; font-size:0.85rem;">快速检测</button>
+                        <button class="check-mode-btn" data-mode="deep" onclick="setCheckMode('deep')" style="border:none; background:transparent; padding:4px 10px; border-radius:4px; cursor:pointer; font-size:0.85rem;">深度检测</button>
+                    </div>
+                    <button class="btn-outline" onclick="openAddGroup()">+ 新建分组</button>
+                    <button class="btn" id="checkLinksBtn" onclick="startLinkCheck()">🔍 检测失效链接</button>
+                </div>
+            </div>
+            <div id="checkResultArea" style="display:none; margin-bottom:16px; padding:12px 16px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                <div id="checkProgress" style="font-size:0.9rem; color:#1e293b; font-weight:500;"></div>
+                <div id="checkStats" style="margin-top:6px; font-size:0.8rem;"></div>
+                <div id="checkList" style="margin-top:8px; max-height:240px; overflow-y:auto; font-size:0.85rem;"></div>
+                <button class="btn-outline red-text" id="deleteBrokenBtn" style="display:none; margin-top:10px;" onclick="deleteBrokenLinks()">🗑️ 删除所有失效卡片</button>
+            </div>
+            <div id="groupsContainer"></div>
+        </div>
+
+        <div id="section-backup" class="section">
+            <h2>数据备份</h2>
+            <button class="btn" onclick="exportData()">导出备份</button>
+            <h2 style="margin-top:24px;">恢复备份</h2>
+            <input type="file" id="importFile" accept=".json" style="margin-bottom:12px;">
+            <button class="btn" onclick="importData()">导入备份</button>
+        </div>
+
+        <div id="section-feedbacks" class="section">
+            <div class="log-header">
+                <h2>用户反馈</h2>
+                <button class="btn-outline btn-sm red-text" onclick="clearAllFeedbacks()">清空全部反馈</button>
+            </div>
+            <div id="feedbacksList" class="log-list">加载中...</div>
+        </div>
+
+        <div id="section-user" class="section">
+            <h2>管理员账户</h2>
+            <div class="form-grid">
+                <div class="form-item"><label>用户名</label><input type="text" id="newUsername"></div>
+                <div class="form-item"><label>新密码</label><input type="password" id="newPassword"></div>
+                <div class="form-item"><label>头像</label><input type="text" id="avatarUrl"></div>
+            </div>
+            <button class="btn" style="margin-top:16px;" onclick="updateUser()">更新账户</button>
+        </div>
+
+        <div id="section-logs" class="section">
+            <div class="log-header">
+                <h2>操作日志</h2>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-outline btn-sm" onclick="exportLogs()">📥 导出日志</button>
+                    <button class="btn-outline btn-sm red-text" onclick="clearAllLogs()">清空全部日志</button>
+                </div>
+            </div>
+            <div class="table-wrapper" id="logContainer">
+                <table class="log-table">
+                    <thead><tr><th>#</th><th>时间</th><th>IP地址</th><th>操作详情</th><th style="width:50px;">操作</th></tr></thead>
+                    <tbody id="logTableBody"><tr><td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">加载中...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="groupModal">
+        <div class="modal">
+            <h3 id="groupModalTitle">新建分组</h3>
+            <div class="form-item"><label>分组名称</label><input type="text" id="groupNameInput"></div>
+            <div class="modal-actions">
+                <button class="btn-outline" onclick="closeGroupModal()">取消</button>
+                <button class="btn" id="groupModalSave">保存</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="cardModal">
+        <div class="modal">
+            <h3 id="cardModalTitle">添加卡片</h3>
+            <div class="form-item"><label>名称</label><input type="text" id="cardName"></div>
+            <div class="form-item"><label>链接</label><div style="display:flex; gap:8px;"><input type="url" id="cardUrl" style="flex:1;"><button class="btn-outline btn-sm" onclick="fetchIcon()">获取图标</button></div></div>
+            <div class="form-item"><label>图标</label><input type="text" id="cardIcon"></div>
+            <div class="form-item"><label>描述</label><input type="text" id="cardDesc"></div>
+            <div class="modal-actions">
+                <button class="btn-outline" onclick="closeCardModal()">取消</button>
+                <button class="btn" id="cardModalSave">保存</button>
+            </div>
+        </div>
+    </div>
+    <div class="msg-toast" id="msgToast"></div>
+
+    <div id="loginBox">
+        <div class="login-header">
+            <img class="login-logo" src="images/favicon.jpg" alt="Logo" style="display:block;">
+            <h2>GDHの导航站</h2>
+        </div>
+        <div class="login-field"><input type="text" id="loginUser" placeholder="用户名" autocomplete="username"></div>
+        <div class="login-field"><input type="password" id="loginPass" placeholder="密码" autocomplete="current-password"></div>
+        <div id="loginCaptchaWrap" style="margin: 12px 0 16px; display:none;"><div id="loginCaptcha"></div></div>
+        <button class="login-btn" id="loginBtn" onclick="login()">登录</button>
+        <div id="loginMsg"></div>
+    </div>
+
+    <script src="js/manage.js"></script>
+</body>
+</html>

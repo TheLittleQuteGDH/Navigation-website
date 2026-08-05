@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title id="pageTitle">加载中...</title>
+    <link rel="icon" href="images/favicon.jpg" type="image/jpeg">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://static.geetest.com/v4/gt4.js"></script>
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bg-layer" id="bgLayer"></div>
+    <div id="offlineView" style="display:none;">
+        <div class="offline-overlay"><div class="offline-icon">🔧</div><h2 id="offlineTitle">加载中...</h2><p id="offlineMsg">加载中...</p></div>
+    </div>
+    <div id="mainView" style="display:none;">
+        <div class="container">
+            <div class="header">
+                <div class="clock-wrap" id="clockWrap"><span class="clock-time" id="clockTime">请稍等...</span><span class="clock-date" id="clockDate">加载中...</span><span class="clock-sync" id="clockSync">✓</span></div>
+                <h1 id="siteTitle">加载中...</h1>
+                <p class="desc" id="siteDesc">加载中...</p>
+                <div class="ip-display" id="ipDisplay" style="display:none;"></div>
+                <div class="weather-widget" id="weatherWidget"></div>
+            </div>
+            <div class="notice-bar" id="noticeBar"><span class="notice-icon">📢</span><div class="notice-content" id="noticeContent"></div></div>
+            <div class="search-section">
+                <div class="search-box">
+                    <select id="engineSelect">
+                        <option value="baidu">百度</option>
+                        <option value="google">Google</option>
+                        <option value="bing">Bing</option>
+                        <option value="duckduckgo">Duck</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="搜索导航卡片..." autocomplete="off" enterkeyhint="search">
+                    <button class="search-btn" id="searchButton" aria-label="搜索">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="search-hint" id="searchHint"></div>
+            <div class="groups-wrapper" id="groupsContainer"></div>
+            <div class="action-buttons">
+                <button class="action-btn" onclick="openFeedbackModal()">📝 提交反馈</button>
+                <button class="action-btn" onclick="openAboutModal()">ℹ️ 关于本站</button>
+            </div>
+            <div class="footer-quote" id="footerQuote"><span class="quote-icon" id="quoteIcon">✨</span><span id="quoteText">加载中...</span></div>
+        </div>
+    </div>
+
+    <div class="modal-popup" id="infoModal">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closeInfoModal()">✕</button>
+            <div class="popup-icon" id="infoIcon"></div>
+            <div class="popup-title" id="infoTitle"></div>
+            <div class="popup-body" id="infoBody"></div>
+            <button class="popup-confirm" onclick="closeInfoModal()">知道了</button>
+        </div>
+    </div>
+
+    <div class="modal-popup" id="popupModal">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopupModal()">✕</button>
+            <div class="popup-icon" id="popupIcon">📢</div>
+            <div class="popup-title" id="popupTitle">公告</div>
+            <div class="popup-body" id="popupBody"></div>
+            <button class="popup-confirm" onclick="closePopupModal()">知道了</button>
+        </div>
+    </div>
+
+    <div class="modal-popup" id="feedbackModal">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closeFeedbackModal()">✕</button>
+            <div class="popup-icon">📝</div>
+            <div class="popup-title">提交反馈</div>
+            <div class="popup-body">
+                <div class="feedback-form">
+                    <div class="form-item">
+                        <label>联系方式（邮箱/QQ）</label>
+                        <input type="text" id="feedbackContact" placeholder="选填">
+                    </div>
+                    <div class="form-item">
+                        <label>反馈内容</label>
+                        <textarea id="feedbackContent" placeholder="请输入您的建议或问题，您宝贵的建议对我们的网站建设有极大的帮助！"></textarea>
+                    </div>
+                    <div class="form-item" id="captchaContainer" style="margin-top:16px; display:none;">
+                        <label>人机验证</label>
+                        <div id="gt4-captcha" style="min-height:44px;"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="popup-confirm" onclick="submitFeedback()">提交反馈</button>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
