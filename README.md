@@ -168,6 +168,23 @@ CSS-网站的全局样式
 
 你可以查看本项目右侧的Releases下载Latest压缩包，将下载好的压缩包解压到你的域名的根目录即可，请注意，你的虚拟主机或其他面板需要支持根目录读写，否则无法存储和读取JSON数据，由于本站的核心是api.php，所以你的服务器/虚拟主机/宝塔面板需要支持运行PHP程序才可使用，本站不依赖数据库
 
+提示：登录页的背景图找到css/manage.css下的`.login-bg {`的代码修改`background-image: url('你找到的网站背景图链接');`部分，后台设置的背景图同样是在css/manage.css的`.main-content::before {`修改` background: url('你找到的网站背景图链接') center/cover no-repeat;`
+登录页头像请在manage.html文件下，滑到最底部找到以下代码修改即可
+
+```html
+    <div id="loginBox">
+        <div class="login-header">
+            <img class="login-logo" src="你的头像链接，URL或者网站本地路径" alt="Logo" style="display:block;">
+            <h2>GDHの导航站</h2>
+        </div>
+        <div class="login-field"><input type="text" id="loginUser" placeholder="用户名" autocomplete="username"></div>
+        <div class="login-field"><input type="password" id="loginPass" placeholder="密码" autocomplete="current-password"></div>
+        <div id="loginCaptchaWrap" style="margin: 12px 0 16px; display:none;"><div id="loginCaptcha"></div></div>
+        <button class="login-btn" id="loginBtn" onclick="login()">登录</button>
+        <div id="loginMsg"></div>
+    </div>
+```
+
 ### 正在努力研究纯前端的导航站部署，等待...
 
 ### 
