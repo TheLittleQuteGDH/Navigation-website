@@ -168,7 +168,8 @@ CSS-网站的全局样式
 
 你可以查看本项目右侧的Releases下载Latest压缩包，将下载好的压缩包解压到你的域名的根目录即可，请注意，你的虚拟主机或其他面板需要支持根目录读写，否则无法存储和读取JSON数据，由于本站的核心是api.php，所以你的服务器/虚拟主机/宝塔面板需要支持运行PHP程序才可使用，本站不依赖数据库
 
-提示：登录页的背景图找到css/manage.css下的`.login-bg {`的代码修改`background-image: url('你找到的网站背景图链接');`部分，后台设置的背景图同样是在css/manage.css的`.main-content::before {`修改` background: url('你找到的网站背景图链接') center/cover no-repeat;`
+提示：登录页的背景图找到css/manage.css下的`.login-bg {`的代码修改`background-image: url('你找到的网站背景图链接');`部分，
+后台设置的背景图同样是在css/manage.css的`.main-content::before {`修改` background: url('你找到的网站背景图链接') center/cover no-repeat;`部分
 登录页头像请在manage.html文件下，滑到最底部找到以下代码修改即可
 
 ```html
