@@ -1,6 +1,6 @@
 <div align="center">
  <a href="https://thelittlequtegdh.fun" target="_self">
-    <img src="https://thelittlequtegdh.fun/images/favicon.jpg" width="128" height="128" alt="站点图标">
+    <img src="https://thelittlequtegdh.top/images/favicon.jpg" width="128" height="128" alt="站点图标">
  </a>
  <br>
   <p><strong><em>GDHの导航站</em></strong></p>
